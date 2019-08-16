@@ -1079,7 +1079,6 @@ public class FileUtils extends CordovaPlugin {
                             }
                             os.write(buffer, 0, bytesRead);
                         }
-
             			PluginResult result;
             			switch (resultType) {
             			case PluginResult.MESSAGE_TYPE_STRING:
@@ -1094,7 +1093,16 @@ public class FileUtils extends CordovaPlugin {
             			default: // Base64.
                         byte[] base64 = Base64.encode(os.toByteArray(), Base64.NO_WRAP);
             			String s = "data:" + contentType + ";base64," + new String(base64, "US-ASCII");
-            			result = new PluginResult(PluginResult.Status.OK, s);
+                        // file size
+                        JSONObject json = new JSONObject();
+                        try{
+                            json.put("data", s);
+                            json.put("bytes",os.size());
+
+                        } catch (JSONException e){
+                            LOG.d(LOG_TAG, e.getLocalizedMessage());
+                        }
+            			result = new PluginResult(PluginResult.Status.OK, json);
             			}
 
             			callbackContext.sendPluginResult(result);
