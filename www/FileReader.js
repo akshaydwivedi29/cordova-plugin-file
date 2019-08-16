@@ -249,7 +249,14 @@ FileReader.prototype.readAsDataURL = function (file) {
 
     var totalSize = file.end - file.start;
     readSuccessCallback.bind(this)('readAsDataURL', null, file.start, totalSize, function (r) {
-        var commaIndex = r.indexOf(',');
+        var commaIndex=0;
+        if('data' in r){
+            commaIndex = r.data.indexOf(',');
+        }
+        else
+        {
+            commaIndex = r.indexOf(',');
+        }
         if (this._progress === 0) {
             this._result = r;
         } else {
