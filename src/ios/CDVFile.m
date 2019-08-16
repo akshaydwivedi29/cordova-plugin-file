@@ -905,8 +905,10 @@ NSString* const kCDVFilesystemURLPrefix = @"cdvfile";
             CDVPluginResult* result = nil;
             if (data != nil) {
                 NSString* b64Str = toBase64(data);
+                NSString* fileSize = [@(data.length) stringValue];
                 NSString* output = [NSString stringWithFormat:@"data:%@;base64,%@", mimeType, b64Str];
-                result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:output];
+                NSDictionary *response = @{@"data" : output, @"bytes"  : fileSize};
+                result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:response];
             } else {
                 result = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsInt:errorCode];
             }
