@@ -260,6 +260,7 @@ FileReader.prototype.readAsDataURL = function (file) {
         }
         if (this._progress === 0) {
             this._result = r;
+            this._temp = r.data;
         } else {
             this._temp += r.data.substring(commaIndex + 1);
             this._result = {bytes:r.bytes,data:this._temp};
