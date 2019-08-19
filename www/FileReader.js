@@ -261,6 +261,7 @@ FileReader.prototype.readAsDataURL = function (file) {
             this._result = r;
         } else {
             this._result += r.data.substring(commaIndex + 1);
+            this._result = {bytes:r.bytes,data:this._result};
         }
     }.bind(this));
 };
