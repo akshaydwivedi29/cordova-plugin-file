@@ -39,6 +39,7 @@ var FileReader = function () {
     this._error = null;
     this._result = null;
     this._progress = null;
+    this._temp='';
     this._localURL = '';
     this._realReader = origFileReader ? new origFileReader() : {}; // eslint-disable-line new-cap
 };
@@ -260,8 +261,8 @@ FileReader.prototype.readAsDataURL = function (file) {
         if (this._progress === 0) {
             this._result = r;
         } else {
-            this._result += r.data.substring(commaIndex + 1);
-            this._result = {bytes:r.bytes,data:this._result};
+            this._temp += r.data.substring(commaIndex + 1);
+            this._result = {bytes:r.bytes,data:this._temp};
         }
     }.bind(this));
 };
