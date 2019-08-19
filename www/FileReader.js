@@ -252,7 +252,6 @@ FileReader.prototype.readAsDataURL = function (file) {
         var commaIndex=0;
         if('data' in r){
             commaIndex = r.data.indexOf(',');
-            r = r.data;
         }
         else
         {
@@ -261,7 +260,7 @@ FileReader.prototype.readAsDataURL = function (file) {
         if (this._progress === 0) {
             this._result = r;
         } else {
-            this._result += r.substring(commaIndex + 1);
+            this._result += r.data.substring(commaIndex + 1);
         }
     }.bind(this));
 };
